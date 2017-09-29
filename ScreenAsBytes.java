@@ -6,66 +6,52 @@ public class ScreenAsBytes {
 
 
         // what bit in the byte to edit
-        byte findbit = (byte) (1 << (8 - (x + 1)));
+        byte findbit = (byte) (1 << (8 - (x +1)));
 
 
         // which byte to edit
-        if (x < (width / (width/8))) {
-            screen[((y + y))] = findbit;
-        }
+            screen[(int) Math.floor((double)(y * width + x) / 8)] = findbit;
 
-        if (x >= (width / (width/8))) {
-            screen[((y + y) + 1)] = findbit;
 
-        }
+
 
 
     }
 
     public static void drawHorizontalLine(byte[] screen, int width, int startX, int endX, int y) {
 
-        // draw line
-
-
-
-
 
 
         for (int z = startX; z <= endX; z++) {
+
+            int index = (int) Math.floor((double)(y * width + z) / 8);
+
+
             byte draw = (byte) (1 << (8 - (z +1)));
 
-            System.out.println(draw);
-            // byte draw = (byte) ( 4 << (int) (((Math.ceil(((y * width + z) / 8)))) - 1));
+            screen[index] +=draw;
 
 
-            screen[(int) (Math.ceil((((y * width) + z) / 8))) - 1] =draw;
-            ;
+            if(z % 7 == 0 ) {
+
+                for (int q = (z % 7) ; q <= endX - 8; q++){
+
+                    z++;
+
+                    int indexx = (int) Math.floor((double)(y * width + z) / 8);
+
+                    byte temp = (byte) (1 << (8 - (q +1)));
+
+                    screen[indexx] +=temp;
+                }
 
 
-               // byte draw = (byte) (1 << (8 - (startX + z)));
+            }
 
-               // if(z == width / (y +1)){
-
-                    // z = z - (width / (y +1));
                 }
 
 
 
-               // System.out.println(draw);
-
-               // System.out.println((((y * width) + z)/8) + " -  ");
-
-
-
-
-
-
-           // if (z >= 8) {
-             //   byte drawsecond = (byte) (1 << (8 - ((z-8) +1 )));
-
-               // System.out.println(drawsecond);
-            //    screen[((y + y) + 1)] = drawsecond;
-           // }
 
 
         }
