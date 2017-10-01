@@ -2,8 +2,6 @@ public class ScreenAsBytes {
 
     public static void setPixel(byte[] screen, int width, int x, int y) {
 
-        int height = screen.length / (width / 8);
-
 
         // what bit in the byte to edit
         byte findbit = (byte) (1 << (8 - (x +1)));
@@ -12,15 +10,9 @@ public class ScreenAsBytes {
         // which byte to edit
             screen[(int) Math.floor((double)(y * width + x) / 8)] = findbit;
 
-
-
-
-
     }
 
     public static void drawHorizontalLine(byte[] screen, int width, int startX, int endX, int y) {
-
-
 
         for (int z = startX; z <= endX; z++) {
 
@@ -31,7 +23,7 @@ public class ScreenAsBytes {
 
             screen[index] +=draw;
 
-
+            // if the horizontal line goes over to the next byte
             if(z % 7 == 0 ) {
 
                 for (int q = (z % 7) ; q <= endX - 8; q++){
@@ -49,26 +41,24 @@ public class ScreenAsBytes {
             }
 
                 }
+        }
+    
+    public static void drawVerticalLine(byte[] screen, int width, int x, int startY, int endY) {
 
 
 
+        for(int z = startY; z <= endY; z++){
 
+
+            int index = (int) Math.floor((double)(z * width + x) / 8);
+
+            byte draw = (byte) (1 << (8 - (x +1)));
+
+            screen[index] = draw;
 
         }
 
 
-
-
-
-
-
-
-
-//}
-
-    
-    public static void drawVerticalLine(byte[] screen, int width, int x, int startY, int endY) {
-        // TODO complete this code
     }
 
 
